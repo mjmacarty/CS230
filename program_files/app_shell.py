@@ -1,4 +1,6 @@
 import sys
+import pandas_datareader as pdr
+from time import time, sleep
 
 def display_menu():
     print(
@@ -11,14 +13,21 @@ def display_menu():
     5. Exit    
         """
     )
-def track():
+def track(watchlist):
     pass
 
 def edit_list():
     pass
 
 def add_list():
-    pass
+    watchlist = []
+    while True:
+        symbol = input("Enter a ticker symbol: ").upper()
+        if symbol == '':
+            break
+        if symbol not in watchlist:
+            watchlist.append(symbol)
+    return sorted(watchlist)
 
 def delete_list():
     pass
@@ -28,15 +37,16 @@ def delete_list():
 actions = {'1': track, '2' : edit_list, '3' : add_list, '4' : delete_list}
 
 def main():
-    display_menu()
-    choice = input("Enter your choice: ")
-    if choice in '1234':
-        actions[choice]()
-    elif choice == '5':
-
-        sys.exit(0)
-    else:
-        print (f"{choice} is not a valid selection")
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ")
+        if choice in '1234':
+            actions[choice]()
+        elif choice == '5':
+            print("Thank you for using stocktracker!")
+            sys.exit(0)
+        else:
+            print (f"{choice} is not a valid selection")
 
 
 
